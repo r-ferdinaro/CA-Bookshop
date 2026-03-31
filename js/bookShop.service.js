@@ -24,7 +24,16 @@ function getBooks() {
         },
     ]
 
-    return books
+    return books;
+}
+
+function getBook(bookId) {
+    return gBooks.find( book => book.id === bookId);
+}
+
+function updatePrice(bookId, price) {
+    const book = getBook(bookId);
+    book.price = price;
 }
 
 function removeBook(bookId) {
