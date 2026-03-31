@@ -22,7 +22,7 @@ function getBooks() {
             price: 87,
             imgUrl: 'zobra.jpg'
         },
-    ]
+    ];
 
     return books;
 }
@@ -32,11 +32,11 @@ function getBook(bookId) {
 }
 
 function updatePrice(bookId, price) {
-    const book = getBook(bookId);
+    const book = getBook(bookId)
     book.price = price;
 }
 
 function removeBook(bookId) {
-    const idx = gBooks.findIndex( book => book.id === bookId)
-    gBooks.splice(idx, 1)
+    const idx = gBooks.findIndex( book => book.id === bookId);
+    gBooks.splice(idx, 1);
 }
