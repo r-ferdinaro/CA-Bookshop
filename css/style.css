@@ -54,3 +54,23 @@ button {
 .delete {
     background-color: rgb(233, 131, 57);
 }
+
+.book-details {
+    line-height: 1.2;
+}
+
+.book-name, .book-price {
+    font-weight: bolder;
+}
+
+.set-book-price {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-block-start: 1em;
+}
+
+button:hover {
+    outline: 1px solid black;
+}
