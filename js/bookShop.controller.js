@@ -14,8 +14,8 @@ function renderBookshop() {
                 <td>${book.price}</td>
                 <td>
                     <button class="read">Read</button>
-                    <button class="update" onclick="onUpdateBook(${book.id})">Update</button>
-                    <button class="delete" onclick="onRemoveBook(${book.id})">Delete</button>
+                    <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
+                    <button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
                 </td>
             </tr>
             `
@@ -26,8 +26,9 @@ function renderBookshop() {
 
 function onUpdateBook(bookId) {
     const book = getBook(bookId);
+    
     const dialogContent = `
-                <form onsubmit="onConfirmUpdatePrice(event, ${bookId})">
+                <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">
                     <div>
                         <div>Please specify a new price value for book <span class="book-name">${book.title}</span></div>
                         <div>Current Price is <span class="book-price">${book.price}</span></div>
