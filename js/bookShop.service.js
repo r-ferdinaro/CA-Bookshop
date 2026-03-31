@@ -1,5 +1,7 @@
 'use strict'
 
+var gBooks = getBooks()
+
 function getBooks() {
     const books = [
         {
@@ -23,4 +25,9 @@ function getBooks() {
     ]
 
     return books
+}
+
+function removeBook(bookId) {
+    const idx = gBooks.findIndex( book => book.id === bookId)
+    gBooks.splice(idx, 1)
 }
