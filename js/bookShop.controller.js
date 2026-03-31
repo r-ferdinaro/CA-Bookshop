@@ -26,9 +26,7 @@ function renderBookshop() {
 
 function onUpdateBook(bookId) {
     const book = getBook(bookId);
-    const elDialog = document.querySelector('.book-details');
-    
-    elDialog.innerHTML = `
+    const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, ${bookId})">
                     <div>
                         <div>Please specify a new price value for book <span class="book-name">${book.title}</span></div>
@@ -40,7 +38,7 @@ function onUpdateBook(bookId) {
                     </div>
                 </form>
                 `;
-    elDialog.showModal();
+    renderDialog(dialogContent)
 }
 
 function onConfirmUpdatePrice(ev, bookId) {
@@ -59,4 +57,11 @@ function onConfirmUpdatePrice(ev, bookId) {
 function onRemoveBook(bookId){
     removeBook(bookId);
     renderBookshop();
+}
+
+function renderDialog(strHtml) {
+    const elDialog = document.querySelector('.book-details');
+    
+    elDialog.innerHTML = strHtml
+    elDialog.showModal();
 }
