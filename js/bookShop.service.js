@@ -21,6 +21,10 @@ function updatePrice(bookId, price) {
     book.price = price;
 }
 
+function addBook(name, title) {
+    gBooks.push(_createBook(name, title))
+}
+
 function removeBook(bookId) {
     const idx = gBooks.findIndex( book => book.id === bookId);
     gBooks.splice(idx, 1);

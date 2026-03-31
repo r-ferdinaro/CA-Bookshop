@@ -4,8 +4,10 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1.2em;
     
     width: 100vw;
     height: 100vh;
@@ -55,6 +57,10 @@ button {
     background-color: rgb(233, 131, 57);
 }
 
+.create {
+    background-color: rgb(83, 202, 149)
+}
+
 .book-details {
     line-height: 1.2;
 }
@@ -63,7 +69,7 @@ button {
     font-weight: bolder;
 }
 
-.set-book-price {
+.set-book-details {
     display: flex;
     justify-content: center;
     gap: 10px;
