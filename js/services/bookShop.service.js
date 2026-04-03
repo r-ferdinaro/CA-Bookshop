@@ -1,16 +1,9 @@
-'use strict'
+'use strict';
 
-var gBooks = getBooks();
+const STORAGE_KEY = 'books'
 
-function getBooks() {
-    const books = [
-        _createBook('The adventures of Lori Ipsi',120),
-        _createBook('World Atlas',300),
-        _createBook('Zobra the greek',87),
-    ];
-
-    return books;
-}
+var gBooks;
+_loadBooks();
 
 function getBook(bookId) {
     return gBooks.find( book => book.id === bookId);
@@ -30,6 +23,8 @@ function removeBook(bookId) {
     gBooks.splice(idx, 1);
 }
 
+// Private functions
+
 function _createBook(title, price) {
     return {
         id: generateId(),
@@ -37,4 +32,24 @@ function _createBook(title, price) {
         price,
         imgUrl: `${title}.jpg` 
     };
+}
+
+function _saveBooks() {
+    saveToStorage(STORAGE_KEY, gBooks)    
+}
+
+function _loadBooks() {
+    gBooks = loadFromStorage(STORAGE_KEY);
+    if (gBooks && gBooks.length > 0) return;
+    
+    gBooks = _createDummyBooks();
+    _saveBooks()
+}
+
+function _createDummyBooks() {
+    return [
+            _createBook('The adventures of Lori Ipsi',120),
+            _createBook('World Atlas',300),
+            _createBook('Zobra the greek',87),
+        ];
 }
