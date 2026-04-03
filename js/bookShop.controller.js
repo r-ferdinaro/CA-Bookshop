@@ -13,7 +13,7 @@ function renderBookshop() {
                 <td>${book.title}</td>
                 <td>${book.price}</td>
                 <td>
-                    <button class="read">Read</button>
+                    <button class="read" onclick="onGetBookDetails('${book.id}')">Read</button>
                     <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
                     <button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
                 </td>
@@ -22,6 +22,13 @@ function renderBookshop() {
     });
     
     elBooksContainer.innerHTML = strHtml.join('');
+}
+
+function onGetBookDetails(bookId) {
+    const book = getBook(bookId);
+    
+    const dialogContent = `<pre>${JSON.stringify(book, null, 4)}</pre><button class="close" onclick="closeDialog()">Close</button>`;
+    renderDialog(dialogContent);
 }
 
 function onUpdateBook(bookId) {
@@ -93,4 +100,9 @@ function renderDialog(strHtml) {
     
     elDialog.innerHTML = strHtml
     elDialog.showModal();
+}
+
+function closeDialog() {
+    const elDialog = document.querySelector('.book-details');
+    elDialog.close();
 }
