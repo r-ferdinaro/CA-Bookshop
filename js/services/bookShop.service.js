@@ -12,15 +12,18 @@ function getBook(bookId) {
 function updatePrice(bookId, price) {
     const book = getBook(bookId);
     book.price = price;
+    _saveBooks();
 }
 
 function addBook(name, title) {
-    gBooks.push(_createBook(name, title))
+    gBooks.push(_createBook(name, title));
+    _saveBooks();
 }
 
 function removeBook(bookId) {
     const idx = gBooks.findIndex( book => book.id === bookId);
     gBooks.splice(idx, 1);
+    _saveBooks();
 }
 
 // Private functions
@@ -35,7 +38,7 @@ function _createBook(title, price) {
 }
 
 function _saveBooks() {
-    saveToStorage(STORAGE_KEY, gBooks)    
+    saveToStorage(STORAGE_KEY, gBooks);
 }
 
 function _loadBooks() {
@@ -43,7 +46,7 @@ function _loadBooks() {
     if (gBooks && gBooks.length > 0) return;
     
     gBooks = _createDummyBooks();
-    _saveBooks()
+    _saveBooks();
 }
 
 function _createDummyBooks() {
