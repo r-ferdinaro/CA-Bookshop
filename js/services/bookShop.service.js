@@ -33,6 +33,14 @@ function removeBook(bookId) {
     _saveBooks();
 }
 
+function getBookStats() {
+    return {
+        expensive: gBooks.filter( book => book.price > 200).length,
+        average: gBooks.filter( book => book.price >= 80 && book.price <= 200).length,
+        cheap: gBooks.filter( book => book.price < 80).length
+    };
+}
+
 // Private functions
 
 function _createBook(title, price) {

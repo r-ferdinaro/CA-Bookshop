@@ -23,6 +23,20 @@ function renderBookshop(textFilter) {
     });
     
     elBooksContainer.innerHTML = strHtml.join('');
+    renderStats();
+}
+
+function renderStats() {
+    const elStatsContainer = document.querySelector('.stats-container');
+    const elExpensive = elStatsContainer.querySelector('.expensive');
+    const elAverage = elStatsContainer.querySelector('.average');
+    const elCheap = elStatsContainer.querySelector('.cheap');
+
+    const stats = getBookStats();
+
+    elExpensive.innerText = stats.expensive;
+    elAverage.innerText = stats.average;
+    elCheap.innerText = stats.cheap;
 }
 
 function onGetBookDetails(bookId) {
