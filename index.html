@@ -8,18 +8,23 @@
 </head>
 <body onload="onInit()">
     <main>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="books-container">
-        </tbody>
-    </table>
-    <button class="create" onclick="odAddBook()">Add new book</button>
+        <div class="search-container">
+            <div>Book filtering</div>
+            <input name="bookSearch" placeholder="Book's name" oninput="onTextFilter(event)">
+            <button onclick="onClearFilterSearchbox()">clear</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="books-container">
+            </tbody>
+        </table>
+        <button class="create" onclick="odAddBook()">Add new book</button>
     </main>
 
     <dialog method="dialog" class="book-details"></dialog>

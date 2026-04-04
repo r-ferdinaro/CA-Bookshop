@@ -9,6 +9,13 @@ function getBook(bookId) {
     return gBooks.find( book => book.id === bookId);
 }
 
+function getBooks(textFilter = '') {
+    if (!textFilter) return gBooks;
+    
+    const filter = textFilter.toLowerCase();
+    return gBooks.filter( book => book.title.toLowerCase().includes(textFilter));
+}
+
 function updatePrice(bookId, price) {
     const book = getBook(bookId);
     book.price = price;

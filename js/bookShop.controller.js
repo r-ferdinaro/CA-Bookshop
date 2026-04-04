@@ -106,3 +106,20 @@ function closeDialog() {
     const elDialog = document.querySelector('.book-details');
     elDialog.close();
 }
+
+function onTextFilter(ev) {
+    const textFilter = ev.target.value;
+    
+    if (!textFilter) {
+        onClearFilterSearchbox();
+        return;
+    }
+    renderBookshop(textFilter);
+}
+
+function onClearFilterSearchbox() {
+    const elSearchBox = document.querySelector('.search-container input');
+    
+    renderBookshop();
+    elSearchBox.value = '';
+}
