@@ -8,22 +8,26 @@ function renderBookshop(textFilter) {
     const elBooksContainer = document.querySelector('.books-container');
     const books = getBooks(textFilter);
     
-    // const strHtml = books.map( book => {
-    const strHtml = (books.length === 0) 
-        ? [`<tr><td colspan="100"><div class="empty">There are no available books</div></td></tr>`]
-        : books.map( book => {
-            return `
-                <tr>
-                    <td>${book.title}</td>
-                    <td>${book.price}</td>
-                    <td>
-                        <button class="read" onclick="onGetBookDetails('${book.id}')">Read</button>
-                        <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
-                        <button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
-                    </td>
-                </tr>
-                `
-    });
+    let strHtml;
+    if (books.length === 0) {
+        const existingBooks = getBooks();
+        const message = (existingBooks.length > 0)
+            ? 'No matching books were found...' : 'There are no books in the library';
+        
+            strHtml = [`<tr><td colspan="100"><div class="empty">${message}</div></td></tr>`];
+    } else {
+        strHtml = books.map(book => `
+            <tr>
+                <td>${book.title}</td>
+                <td>${book.price}</td>
+                <td>
+                    <button class="read" onclick="onGetBookDetails('${book.id}')">Read</button>
+                    <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
+                    <button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
+                </td>
+            </tr>
+        `);
+    }
     
     elBooksContainer.innerHTML = strHtml.join('');
     renderStats();
