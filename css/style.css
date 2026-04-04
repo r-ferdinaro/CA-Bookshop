@@ -131,7 +131,10 @@ pre { margin: 0 auto;
     bottom: 25%;
 
     border: 1px solid rgba(0, 0, 0, 0.3);    
-    padding-block: .5em;
-    padding-inline: 5em;
+    padding: .5em;
     background-color: rgba(90, 188, 237, 0.5);
+}
+
+.banner > span {
+    font-weight: bold;
 }

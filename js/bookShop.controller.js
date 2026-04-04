@@ -61,6 +61,7 @@ function onConfirmUpdatePrice(ev, bookId) {
     
     elDialog.close();
     renderBookshop();
+    notifyUser('update', bookId);
 }
 
 function odAddBook() {
@@ -89,9 +90,13 @@ function onConfirmAddBook(ev) {
 
     elDialog.close();
     renderBookshop();
+    notifyUser('add', bookName);
 }
 
 function onRemoveBook(bookId){
+    const book = getBookById(bookId);
+
+    notifyUser('delete', bookId);
     removeBook(bookId);
     renderBookshop();
 }
@@ -125,10 +130,18 @@ function onClearFilterSearchbox() {
     elSearchBox.value = '';
 }
 
-function notifyUser(message) {
+function notifyUser(operation, bookFilter) {
     const elBanner = document.querySelector('.banner');
+    const book =  (operation === 'add') ? getBooks(bookFilter)[0] : getBookById(bookFilter); 
+    let strHtml;
 
-    elBanner.innerText = message;
+    switch (operation) {
+        case 'add': strHtml = `Book <span>${book.title}</span> has been created with a price of <span>${book.price}</span>`; break;
+        case 'update': strHtml = `The price of book <span>${book.title}</span> has been changed to <span>${book.price}</span>`; break;
+        case 'delete': strHtml = `Book <span>${book.title}</span> has been removed`; break;
+    }
+
+    elBanner.innerHTML = strHtml;
     elBanner.style.opacity = 1;
 
     setTimeout(() => {
