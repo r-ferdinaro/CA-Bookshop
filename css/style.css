@@ -67,6 +67,15 @@ tbody > :nth-child(even) {
     background-color: rgb(232, 232, 232);
 }
 
+.empty {
+    margin: 2em 6em;
+    text-align: center;
+    
+    font-size:larger;
+    font-weight: bolder;
+    color: rgb(192, 192, 192);
+}
+
 button {
     border-radius: 8px;
     border: none;
@@ -149,7 +158,3 @@ footer {
     padding: .5em;
     background-color: rgb(232, 232, 232);
 }
-
-/* .stats {
-    margin-inline-start: auto;
-} */
