@@ -4,10 +4,11 @@ function onInit() {
     renderBookshop();
 }
 
-function renderBookshop() {
+function renderBookshop(textFilter) {
     const elBooksContainer = document.querySelector('.books-container');
-
-    const strHtml = gBooks.map( book => {
+    const books = getBooks(textFilter);
+    
+    const strHtml = books.map( book => {
         return `
             <tr>
                 <td>${book.title}</td>
@@ -25,14 +26,14 @@ function renderBookshop() {
 }
 
 function onGetBookDetails(bookId) {
-    const book = getBook(bookId);
+    const book = getBookById(bookId);
     
     const dialogContent = `<pre>${JSON.stringify(book, null, 4)}</pre><button class="close" onclick="closeDialog()">Close</button>`;
     renderDialog(dialogContent);
 }
 
 function onUpdateBook(bookId) {
-    const book = getBook(bookId);
+    const book = getBookById(bookId);
     
     const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">

@@ -5,7 +5,7 @@ const STORAGE_KEY = 'books'
 var gBooks;
 _loadBooks();
 
-function getBook(bookId) {
+function getBookById(bookId) {
     return gBooks.find( book => book.id === bookId);
 }
 
@@ -17,7 +17,7 @@ function getBooks(textFilter = '') {
 }
 
 function updatePrice(bookId, price) {
-    const book = getBook(bookId);
+    const book = getBookById(bookId);
     book.price = price;
     _saveBooks();
 }
