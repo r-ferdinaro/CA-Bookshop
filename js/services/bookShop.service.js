@@ -13,7 +13,7 @@ function getBooks(textFilter = '') {
     if (!textFilter) return gBooks;
     
     const filter = textFilter.toLowerCase();
-    return gBooks.filter( book => book.title.toLowerCase().includes(textFilter));
+    return gBooks.filter( book => book.title.toLowerCase().includes(filter));
 }
 
 function updatePrice(bookId, price) {
