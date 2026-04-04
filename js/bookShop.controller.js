@@ -124,3 +124,14 @@ function onClearFilterSearchbox() {
     renderBookshop();
     elSearchBox.value = '';
 }
+
+function notifyUser(message) {
+    const elBanner = document.querySelector('.banner');
+
+    elBanner.innerText = message;
+    elBanner.style.opacity = 1;
+
+    setTimeout(() => {
+        elBanner.style.opacity = 0;
+    }, 2000);
+}

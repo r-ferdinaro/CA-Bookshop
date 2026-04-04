@@ -74,6 +74,10 @@ button {
     font-weight: bolder;
 }
 
+button:hover {
+    outline: 1px solid black;
+}
+
 .read {
     background-color: rgb(90, 188, 237);
 }
@@ -119,6 +123,15 @@ pre { margin: 0 auto;
     margin-block-start: 1em;
 }
 
-button:hover {
-    outline: 1px solid black;
+.banner {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    position: fixed;
+    bottom: 25%;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);    
+    padding-block: .5em;
+    padding-inline: 5em;
+    background-color: rgba(90, 188, 237, 0.5);
 }
