@@ -50,21 +50,27 @@ function renderStats() {
 function onGetBookDetails(bookId) {
     const book = getBookById(bookId);
     
-    const dialogContent = `<pre>${JSON.stringify(book, null, 4)}</pre><button class="close" onclick="closeDialog()">Close</button>`;
+    const dialogContent = `
+        <pre>${JSON.stringify(book, null, 4)}</pre>
+        <button class="close" onclick="closeDialog()">Close</button>
+        `;
     renderDialog(dialogContent);
 }
 
 function onUpdateBook(bookId) {
     const book = getBookById(bookId);
+    const elRating = elRatingSelect(+book.rating);
     
     const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">
                     <div>
                         <div>Please specify a new price value for book <span class="book-name">${book.title}</span></div>
-                        <div>Current Price is <span class="book-price">${book.price}</span></div>
                     </div>
                     <div class="set-book-details">
-                        <input type="number" name="newPrice" placeholder="New Price value" required min=0 step=1>
+                        <span>Price:</span>
+                        <input type="number" name="newPrice" value="${book.price}" required min=0 step=1>
+                        <span>rating:</span>
+                        ${elRating}
                         <button class="update" type="submit">Confirm</button>
                     </div>
                 </form>
@@ -75,11 +81,18 @@ function onUpdateBook(bookId) {
 function onConfirmUpdatePrice(ev, bookId) {
     ev.preventDefault();
     
+    const book = getBookById(bookId);
     const elDialog = document.querySelector('.book-details');
     const newPrice = +ev.target.newPrice.value;
+    const newRating = ev.target.newRating.value;
     
     if (!newPrice || !Number.isInteger(newPrice) || newPrice < 0) return;
-    updatePrice(bookId, newPrice);
+    if (book.price === newPrice && book.rating === newRating) {
+        elDialog.close();
+        return;
+    } 
+    
+    updatePrice(bookId, newPrice, newRating);
     
     elDialog.close();
     renderBookshop();
@@ -172,10 +185,20 @@ function notifyUser(operation, bookFilter) {
 }
 
 function visualRating(rating) {
-    let str = '' 
+    let str = '';
     
     for (let i = 0; i < 5; i++) {
-        str += (i < rating) ? '★' : '☆'
+        str += (i < rating) ? '★' : '☆';
     }
-    return str
+    return str;
+}
+
+function elRatingSelect(bookRating) {
+    let res = '<select name="newRating">'
+
+    for (let i = 1 ; i <= 5; i++) {
+        res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${i}</option>`;
+    }
+    res += '</select>';
+    return res;
 }

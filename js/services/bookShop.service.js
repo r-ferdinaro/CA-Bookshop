@@ -16,9 +16,10 @@ function getBooks(textFilter = '') {
     return gBooks.filter(book => regex.test(book.title))
 }
 
-function updatePrice(bookId, price) {
+function updatePrice(bookId, price, rating) {
     const book = getBookById(bookId);
     book.price = price;
+    book.rating = rating;
     _saveBooks();
 }
 
