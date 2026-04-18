@@ -23,8 +23,8 @@ function updatePrice(bookId, price, rating) {
     _saveBooks();
 }
 
-function addBook(name, title) {
-    gBooks.push(_createBook(name, title));
+function addBook(title, price ,rating) {
+    gBooks.push(_createBook(title, price, rating));
     _saveBooks();
 }
 
@@ -50,7 +50,7 @@ function _createBook(title, price, rating) {
         title,
         price,
         imgUrl: `${title}.jpg`,
-        rating: rating || getRandomInt(1, 6)
+        rating: +rating || getRandomInt(1, 6)
     };
 }
 

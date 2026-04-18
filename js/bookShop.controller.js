@@ -59,7 +59,7 @@ function onGetBookDetails(bookId) {
 
 function onUpdateBook(bookId) {
     const book = getBookById(bookId);
-    const elRating = elRatingSelect(+book.rating);
+    const ratingHTML = elRatingSelect(+book.rating);
     
     const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">
@@ -70,7 +70,7 @@ function onUpdateBook(bookId) {
                         <span>Price:</span>
                         <input type="number" name="newPrice" value="${book.price}" required min=0 step=1>
                         <span>rating:</span>
-                        ${elRating}
+                        ${ratingHTML}
                         <button class="update" type="submit">Confirm</button>
                     </div>
                 </form>
@@ -100,12 +100,17 @@ function onConfirmUpdatePrice(ev, bookId) {
 }
 
 function odAddBook() {
+    const ratingHTML = elRatingSelect(5);
     const dialogContent = `
                 <form onsubmit="onConfirmAddBook(event)">
                     <div>Please specify the new book's name and price.</div>
                     <div class="set-book-details">
+                        <span>Name:</span>
                         <input type="text" name="bookName" placeholder="Book's name" required>
+                        <span>Price:</span>
                         <input type="number" name="bookPrice" placeholder="Book's price" required min=0 step=1>
+                        <span>Rating:</span>
+                        ${ratingHTML}
                         <button class="update" type="submit">Confirm</button>
                     </div>
                 </form>
@@ -119,9 +124,10 @@ function onConfirmAddBook(ev) {
     const elDialog = document.querySelector('.book-details');
     const bookName = ev.target.bookName.value;
     const bookPrice = +ev.target.bookPrice.value;
+    const bookRating = ev.target.newRating.value;
 
     if (!(bookName && bookPrice) || !Number.isInteger(bookPrice) || bookPrice < 0) return;
-    addBook(bookName, bookPrice);
+    addBook(bookName, bookPrice, bookRating);
 
     elDialog.close();
     renderBookshop();
@@ -194,7 +200,7 @@ function visualRating(rating) {
 }
 
 function elRatingSelect(bookRating) {
-    let res = '<select name="newRating">'
+    let res = '<select name="newRating">';
 
     for (let i = 1 ; i <= 5; i++) {
         res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${i}</option>`;
