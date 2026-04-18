@@ -12,13 +12,14 @@ function renderBookshop(textFilter) {
     if (books.length === 0) {
         const existingBooks = getBooks();
         const message = (existingBooks.length > 0)
-            ? 'No matching books were found...' : 'There are no books in the library';
-        
-            strHtml = [`<tr><td colspan="100"><div class="empty">${message}</div></td></tr>`];
+            ? 'No matching books were found...'
+            : 'There are no books in the library';
+        strHtml = [`<tr><td colspan="100"><div class="empty">${message}</div></td></tr>`];
     } else {
         strHtml = books.map(book => `
             <tr>
                 <td>${book.title}</td>
+                <td>${visualRating(book.rating)}</td>
                 <td>${book.price}</td>
                 <td>
                     <button class="read" onclick="onGetBookDetails('${book.id}')">Read</button>
@@ -168,4 +169,13 @@ function notifyUser(operation, bookFilter) {
     setTimeout(() => {
         elBanner.style.opacity = 0;
     }, 2000);
+}
+
+function visualRating(rating) {
+    let str = '' 
+    
+    for (let i = 0; i < 5; i++) {
+        str += (i < rating) ? '★' : '☆'
+    }
+    return str
 }

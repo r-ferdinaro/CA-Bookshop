@@ -60,7 +60,11 @@ th {
 }
 
 .title {
-    width: 30%;
+    width: 40%;
+}
+
+.rating {
+    width: 15%;
 }
 
 .price {
@@ -68,7 +72,7 @@ th {
 }
 
 .actions {
-    width: 30%;
+    width: 35%;
 }
 
 th, td {
