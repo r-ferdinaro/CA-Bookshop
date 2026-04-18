@@ -45,12 +45,13 @@ function getBookStats() {
 
 // Private functions
 
-function _createBook(title, price) {
+function _createBook(title, price, rating) {
     return {
         id: generateId(),
         title,
         price,
-        imgUrl: `${title}.jpg` 
+        imgUrl: `${title}.jpg`,
+        rating: rating || getRandomInt(1, 6)
     };
 }
 
@@ -68,8 +69,8 @@ function _loadBooks() {
 
 function _createDummyBooks() {
     return [
-            _createBook('The adventures of Lori Ipsi',120),
-            _createBook('World Atlas',300),
-            _createBook('Zobra the greek',87),
+            _createBook('The adventures of Lori Ipsi', 120, 5),
+            _createBook('World Atlas', 300, 3),
+            _createBook('Zobra the greek', 87, 4),
         ];
 }
