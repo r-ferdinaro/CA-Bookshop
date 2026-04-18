@@ -12,8 +12,10 @@ function getBookById(bookId) {
 function getBooks(textFilter = '') {
     if (!textFilter) return gBooks;
     
-    const filter = textFilter.toLowerCase();
-    return gBooks.filter( book => book.title.toLowerCase().includes(filter));
+    // const filter = textFilter.toLowerCase();
+    const regex = new RegExp(textFilter, 'i')
+    return gBooks.filter(book => regex.test(book.title))
+    // return gBooks.filter( book => book.title.toLowerCase().includes(filter));
 }
 
 function updatePrice(bookId, price) {
