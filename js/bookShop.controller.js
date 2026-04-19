@@ -130,11 +130,11 @@ function onConfirmAddBook(ev) {
     const bookRating = ev.target.newRating.value;
 
     if (!(bookName && bookPrice) || !Number.isInteger(bookPrice) || bookPrice < 0) return;
-    addBook(bookName, bookPrice, bookRating);
+    const bookId = addBook(bookName, bookPrice, bookRating);
 
     elDialog.close();
     renderBookshop();
-    notifyUser('add', bookName);
+    notifyUser('add',bookId);
 }
 
 function onRemoveBook(bookId){
@@ -157,12 +157,6 @@ function closeDialog() {
     elDialog.close();
 }
 
-// Add support for combined filtering of the book list by title
-// and rating (minimum rating). ⇩
-// - Use a filterBy object as demonstrated in class
-// - Use a dropdown to choose the minimum rating
-// - Update the clear filter button to clear both criteria
-
 function onSetFilterBy() {
     const elTitleFilter = document.querySelector('.filter-by .title');
     const elMinRating = document.querySelector('.filter-by .rating');
@@ -184,9 +178,9 @@ function onClearFilterSearchbox() {
     renderBookshop();
 }
 
-function notifyUser(operation, bookFilter) {
+function notifyUser(operation, id) {
     const elBanner = document.querySelector('.banner');
-    const book =  (operation === 'add') ? getBooks(bookFilter)[0] : getBookById(bookFilter); 
+    const book = getBookById(id);
     let strHtml;
 
     switch (operation) {

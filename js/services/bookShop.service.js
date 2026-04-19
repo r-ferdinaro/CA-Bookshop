@@ -10,19 +10,22 @@ function getBookById(bookId) {
 }
 
 function getBooks(params) {
-    const filterBy = params.filterBy;
-    let filteredBooks = [...gBooks];
-    
+    let books = _filter(params.filterBy);
+
+    return books;
+}
+
+function _filter(filterBy) {
+    let books = [...gBooks];
+
     if (filterBy.title) {
         const regex = new RegExp(filterBy.title, 'i');
-        filteredBooks = filteredBooks.filter(book => regex.test(book.title));
+        books = books.filter(book => regex.test(book.title));
     }
-    
     if (filterBy.minRating) {
-        filteredBooks = filteredBooks.filter(book => book.rating >= filterBy.minRating);
+        books = books.filter(book => book.rating >= filterBy.minRating);
     }
-
-    return filteredBooks;
+    return books;
 }
 
 function updatePrice(bookId, price, rating) {
@@ -33,8 +36,11 @@ function updatePrice(bookId, price, rating) {
 }
 
 function addBook(title, price ,rating) {
-    gBooks.push(_createBook(title, price, rating));
+    const book = _createBook(title, price, rating);
+    
+    gBooks.push(book);
     _saveBooks();
+    return book.id
 }
 
 function removeBook(bookId) {
