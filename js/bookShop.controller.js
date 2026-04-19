@@ -5,6 +5,7 @@ const gQueryParams = {
 }
 
 function onInit() {
+    readQueryParams();
     renderBookshop();
 }
 
@@ -220,11 +221,21 @@ function elRatingSelect(bookRating) {
 }
 
 function readQueryParams() {
+    const readQueryParams = new URLSearchParams(window.location.search);
 
+    gQueryParams.filterBy = {
+        title: readQueryParams.get('title') || '',
+        minRating: +readQueryParams.get('minRating') || 1,
+    };
+
+    renderQueryParams();
 }
 
 function renderQueryParams() {
+    const elFilterSection = document.querySelector('.search-container');
 
+    elFilterSection.querySelector('.title').value = gQueryParams.filterBy.title;
+    elFilterSection.querySelector('.rating').value = gQueryParams.filterBy.rating || '1';
 }
 
 function setQueryParams() {
