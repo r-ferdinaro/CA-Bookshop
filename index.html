@@ -14,7 +14,7 @@
                 <div class="filter-by">
                     <span>Title:</span>
                     <input class="title" name="bookSearch" placeholder="Book's title" oninput="onSetFilterBy(event)">
-                    <span>Min rating:</span>
+                    <span>Rating:</span>
                     <select class="rating" name="ratingFilter" onchange="onSetFilterBy(event)">
                         <option value="1">★☆☆☆☆</option>
                         <option value="2">★★☆☆☆</option>
@@ -22,8 +22,18 @@
                         <option value="4">★★★★☆</option>
                         <option value="5">★★★★★</option>
                     </select>
+                    <button onclick="onClearFilterSearchbox()">clear</button>
                 </div>
-                <button onclick="onClearFilterSearchbox()">clear</button>
+                <div class="sort-by">
+                    <span>Sort By:</span>
+                    <select class="sort" name="ratingSort" onchange="onSetSortBy(event)">
+                        <option value="title">Title</option>
+                        <option value="price">Price</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                    <span>Descending:</span>
+                    <input class="desc" type="checkbox" name="descending" onchange="onSetSortBy(event)">
+                </div>
             </fieldset> 
 		</section>
         <table>

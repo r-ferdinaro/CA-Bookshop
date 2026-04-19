@@ -2,6 +2,7 @@
 
 const gQueryParams = {
     filterBy: {title: '', minRating: 1},
+    sortBy: {sort: 'title', direction: 1},
 }
 
 function onInit() {
@@ -170,6 +171,19 @@ function onSetFilterBy() {
     renderBookshop();
 }
 
+function onSetSortBy() {
+    const elOrderSelect = document.querySelector('.sort-by .sort');
+    const elOrderDir = document.querySelector('.sort-by .desc');
+
+    gQueryParams.sortBy = {
+        sort: elOrderSelect.value,
+        direction: (elOrderDir.checked) ? -1 : 1
+    };
+
+    setQueryParams();
+    renderBookshop();
+}
+
 function onClearFilterSearchbox() {
     const elSearchBox = document.querySelector('.filter-by .title');
     const elMinRating = document.querySelector('.filter-by .rating');
@@ -228,23 +242,34 @@ function readQueryParams() {
         minRating: +readQueryParams.get('minRating') || 1,
     };
 
+    gQueryParams.sortBy = {
+        sort: readQueryParams.get('sort') || 'title',
+        direction: +readQueryParams.get('dir')|| 1
+    };
+
     renderQueryParams();
 }
 
 function renderQueryParams() {
-    const elFilterSection = document.querySelector('.search-container');
+    const elFilterContainer = document.querySelector('.search-container');
 
-    elFilterSection.querySelector('.title').value = gQueryParams.filterBy.title;
-    elFilterSection.querySelector('.rating').value = gQueryParams.filterBy.rating || '1';
+    elFilterContainer.querySelector('.title').value = gQueryParams.filterBy.title;
+    elFilterContainer.querySelector('.rating').value = gQueryParams.filterBy.rating || '1';
+    elFilterContainer.querySelector('.sort').value = gQueryParams.sortBy.sort;
+    elFilterContainer.querySelector('.desc').checked = (Number(gQueryParams.sortBy.direction) === 1) ? false : true;
 }
 
 function setQueryParams() {
     const queryParams = new URLSearchParams();
     const title = gQueryParams.filterBy.title;
     const minRating = gQueryParams.filterBy.minRating;
+    const sortBy = gQueryParams.sortBy.sort;
+    const sortDir = gQueryParams.sortBy.direction;
 
-    if (title) queryParams.set('title', gQueryParams.filterBy.title);
-    if (minRating) queryParams.set('minRating', gQueryParams.filterBy.minRating);
+    if (title) queryParams.set('title', title);
+    if (minRating) queryParams.set('minRating', minRating);
+    if (sortBy) queryParams.set('sort', sortBy);
+    if (sortDir) queryParams.set('dir', sortDir);
 
     const newUrl = 
         window.location.protocol + '//' +

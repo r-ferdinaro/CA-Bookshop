@@ -11,6 +11,7 @@ function getBookById(bookId) {
 
 function getBooks(params) {
     let books = _filter(params.filterBy);
+    books = _sort(books, params.sortBy);
 
     return books;
 }
@@ -24,6 +25,20 @@ function _filter(filterBy) {
     }
     if (filterBy.minRating) {
         books = books.filter(book => book.rating >= filterBy.minRating);
+    }
+    return books;
+}
+
+function _sort(books, sortBy) {
+    const sort = sortBy.sort;
+    const direction = sortBy.direction;
+    
+    if (sort === 'title') {
+        books.sort((book1, book2) => book1.title.localeCompare(book2.title) * direction);
+    } else if (sort === 'price') {
+        books.sort((book1, book2) => (book1.price - book2.price) * direction);
+    } else if (sort === 'rating') {
+        books.sort((book1, book2) => (book1.rating - book2.rating) * direction);
     }
     return books;
 }
