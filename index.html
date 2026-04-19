@@ -8,11 +8,24 @@
 </head>
 <body onload="onInit()">
     <main>
-        <div class="search-container">
-            <div>Book filtering</div>
-            <input name="bookSearch" placeholder="Book's name" oninput="onTextFilter(event)">
-            <button onclick="onClearFilterSearchbox()">clear</button>
-        </div>
+        <section class="search-container">
+			<fieldset>
+                <legend>Filter & Sorting</legend>
+                <div class="filter-by">
+                    <span>Title:</span>
+                    <input class="title" name="bookSearch" placeholder="Book's title" oninput="onSetFilterBy(event)">
+                    <span>Min rating:</span>
+                    <select class="rating" name="ratingFilter" onchange="onSetFilterBy(event)">
+                        <option value="1">★☆☆☆☆</option>
+                        <option value="2">★★☆☆☆</option>
+                        <option value="3">★★★☆☆</option>
+                        <option value="4">★★★★☆</option>
+                        <option value="5">★★★★★</option>
+                    </select>
+                </div>
+                <button onclick="onClearFilterSearchbox()">clear</button>
+            </fieldset> 
+		</section>
         <table>
             <thead>
                 <tr>

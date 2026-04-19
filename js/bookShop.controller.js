@@ -1,17 +1,20 @@
 'use strict';
 
+const gQueryParams = {
+    filterBy: {title: '', minRating: 1},
+}
+
 function onInit() {
     renderBookshop();
 }
 
-function renderBookshop(textFilter) {
+function renderBookshop() {
     const elBooksContainer = document.querySelector('.books-container');
-    const books = getBooks(textFilter);
+    const books = getBooks(gQueryParams);
     
     let strHtml;
     if (books.length === 0) {
-        const existingBooks = getBooks();
-        const message = (existingBooks.length > 0)
+        const message = (books.length > 0)
             ? 'No matching books were found...'
             : 'There are no books in the library';
         strHtml = [`<tr><td colspan="100"><div class="empty">${message}</div></td></tr>`];
@@ -154,21 +157,31 @@ function closeDialog() {
     elDialog.close();
 }
 
-function onTextFilter(ev) {
-    const textFilter = ev.target.value;
-    
-    if (!textFilter) {
-        onClearFilterSearchbox();
-        return;
-    }
-    renderBookshop(textFilter);
+// Add support for combined filtering of the book list by title
+// and rating (minimum rating). ⇩
+// - Use a filterBy object as demonstrated in class
+// - Use a dropdown to choose the minimum rating
+// - Update the clear filter button to clear both criteria
+
+function onSetFilterBy() {
+    const elTitleFilter = document.querySelector('.filter-by .title');
+    const elMinRating = document.querySelector('.filter-by .rating');
+
+    gQueryParams.filterBy = {
+        title: elTitleFilter.value,
+        minRating: +elMinRating.value
+    };
+    renderBookshop();
 }
 
 function onClearFilterSearchbox() {
-    const elSearchBox = document.querySelector('.search-container input');
+    const elSearchBox = document.querySelector('.filter-by .title');
+    const elMinRating = document.querySelector('.filter-by .rating');
     
-    renderBookshop();
+    gQueryParams.filterBy = {title: '', minRating: 1};
     elSearchBox.value = '';
+    elMinRating.value = '1';
+    renderBookshop();
 }
 
 function notifyUser(operation, bookFilter) {
@@ -203,7 +216,8 @@ function elRatingSelect(bookRating) {
     let res = '<select name="newRating">';
 
     for (let i = 1 ; i <= 5; i++) {
-        res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${i}</option>`;
+        const rating = `${'★'.repeat(i) + '☆'.repeat(5 - i)}`
+        res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${rating}</option>`;
     }
     res += '</select>';
     return res;

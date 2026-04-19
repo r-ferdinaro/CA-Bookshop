@@ -9,11 +9,20 @@ function getBookById(bookId) {
     return gBooks.find( book => book.id === bookId);
 }
 
-function getBooks(textFilter = '') {
-    if (!textFilter) return gBooks;
+function getBooks(params) {
+    const filterBy = params.filterBy;
+    let filteredBooks = [...gBooks];
     
-    const regex = new RegExp(textFilter, 'i')
-    return gBooks.filter(book => regex.test(book.title))
+    if (filterBy.title) {
+        const regex = new RegExp(filterBy.title, 'i');
+        filteredBooks = filteredBooks.filter(book => regex.test(book.title));
+    }
+    
+    if (filterBy.minRating) {
+        filteredBooks = filteredBooks.filter(book => book.rating >= filterBy.minRating);
+    }
+
+    return filteredBooks;
 }
 
 function updatePrice(bookId, price, rating) {

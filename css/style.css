@@ -27,15 +27,13 @@ main {
 
 .search-container {
     align-self: flex-start;
-    
-    display: flex;
-    align-items: center;
-    gap: .4em;
-
     width: 100%;
+}
 
-    border: 1px rgb(192, 192, 192) solid;
-    padding: .3em .5em;
+fieldset {
+    display: flex;
+    justify-content: space-between;
+    gap: .4em;
 }
 
 .search-container > div {
@@ -63,7 +61,7 @@ th {
     width: 40%;
 }
 
-.rating {
+th.rating {
     width: 15%;
 }
 
