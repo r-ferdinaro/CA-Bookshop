@@ -165,6 +165,7 @@ function onSetFilterBy() {
         title: elTitleFilter.value,
         minRating: +elMinRating.value
     };
+    setQueryParams();
     renderBookshop();
 }
 
@@ -175,6 +176,7 @@ function onClearFilterSearchbox() {
     gQueryParams.filterBy = {title: '', minRating: 1};
     elSearchBox.value = '';
     elMinRating.value = '1';
+    setQueryParams();
     renderBookshop();
 }
 
@@ -215,4 +217,28 @@ function elRatingSelect(bookRating) {
     }
     res += '</select>';
     return res;
+}
+
+function readQueryParams() {
+
+}
+
+function renderQueryParams() {
+
+}
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams();
+    const title = gQueryParams.filterBy.title;
+    const minRating = gQueryParams.filterBy.minRating;
+
+    if (title) queryParams.set('title', gQueryParams.filterBy.title);
+    if (minRating) queryParams.set('minRating', gQueryParams.filterBy.minRating);
+
+    const newUrl = 
+        window.location.protocol + '//' +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString();
+    
+    window.history.pushState({path: newUrl}, '', newUrl);
 }
