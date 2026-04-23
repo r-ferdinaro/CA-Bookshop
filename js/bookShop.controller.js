@@ -64,7 +64,7 @@ function onGetBookDetails(bookId) {
 
 function onUpdateBook(bookId) {
     const book = getBookById(bookId);
-    const ratingHTML = elRatingSelect(+book.rating);
+    const ratingHTML = createRatingElement(+book.rating);
     
     const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">
@@ -105,7 +105,7 @@ function onConfirmUpdatePrice(ev, bookId) {
 }
 
 function odAddBook() {
-    const ratingHTML = elRatingSelect(5);
+    const ratingHTML = createRatingElement(5);
     const dialogContent = `
                 <form onsubmit="onConfirmAddBook(event)">
                     <div>Please specify the new book's name and price.</div>
@@ -147,6 +147,26 @@ function onRemoveBook(bookId){
     renderBookshop();
 }
 
+function visualRating(rating) {
+    let str = '';
+    
+    for (let i = 0; i < 5; i++) {
+        str += (i < rating) ? '★' : '☆';
+    }
+    return str;
+}
+
+function createRatingElement(bookRating) {
+    let res = '<select name="newRating">';
+
+    for (let i = 1 ; i <= 5; i++) {
+        const rating = `${'★'.repeat(i) + '☆'.repeat(5 - i)}`
+        res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${rating}</option>`;
+    }
+    res += '</select>';
+    return res;
+}
+
 function renderDialog(strHtml) {
     const elDialog = document.querySelector('.book-details');
     
@@ -167,6 +187,17 @@ function onSetFilterBy() {
         title: elTitleFilter.value,
         minRating: +elMinRating.value
     };
+    setQueryParams();
+    renderBookshop();
+}
+
+function onClearFilterSearchbox() {
+    const elSearchBox = document.querySelector('.filter-by .title');
+    const elMinRating = document.querySelector('.filter-by .rating');
+    
+    gQueryParams.filterBy = {title: '', minRating: 1};
+    elSearchBox.value = '';
+    elMinRating.value = '1';
     setQueryParams();
     renderBookshop();
 }
@@ -193,6 +224,20 @@ function onClearFilterSearchbox() {
     elMinRating.value = '1';
     setQueryParams();
     renderBookshop();
+
+}
+
+function renderStats() {
+    const elStatsContainer = document.querySelector('.stats-container');
+    const elExpensive = elStatsContainer.querySelector('.expensive');
+    const elAverage = elStatsContainer.querySelector('.average');
+    const elCheap = elStatsContainer.querySelector('.cheap');
+
+    const stats = getBookStats();
+
+    elExpensive.innerText = stats.expensive;
+    elAverage.innerText = stats.average;
+    elCheap.innerText = stats.cheap;
 }
 
 function notifyUser(operation, id) {
@@ -212,26 +257,6 @@ function notifyUser(operation, id) {
     setTimeout(() => {
         elBanner.style.opacity = 0;
     }, 2000);
-}
-
-function visualRating(rating) {
-    let str = '';
-    
-    for (let i = 0; i < 5; i++) {
-        str += (i < rating) ? '★' : '☆';
-    }
-    return str;
-}
-
-function elRatingSelect(bookRating) {
-    let res = '<select name="newRating">';
-
-    for (let i = 1 ; i <= 5; i++) {
-        const rating = `${'★'.repeat(i) + '☆'.repeat(5 - i)}`
-        res += `<option value="${i}" ${i === bookRating ? ' selected' : ''}>${rating}</option>`;
-    }
-    res += '</select>';
-    return res;
 }
 
 function readQueryParams() {
