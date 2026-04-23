@@ -3,6 +3,7 @@
 const gQueryParams = {
     filterBy: {title: '', minRating: 1},
     sortBy: {sort: 'title', direction: 1},
+    page: {idx: 0, size: 3}
 }
 
 function onInit() {
@@ -37,19 +38,7 @@ function renderBookshop() {
     
     elBooksContainer.innerHTML = strHtml.join('');
     renderStats();
-}
-
-function renderStats() {
-    const elStatsContainer = document.querySelector('.stats-container');
-    const elExpensive = elStatsContainer.querySelector('.expensive');
-    const elAverage = elStatsContainer.querySelector('.average');
-    const elCheap = elStatsContainer.querySelector('.cheap');
-
-    const stats = getBookStats();
-
-    elExpensive.innerText = stats.expensive;
-    elAverage.innerText = stats.average;
-    elCheap.innerText = stats.cheap;
+    renderCurrentPage();
 }
 
 function onGetBookDetails(bookId) {
@@ -215,14 +204,25 @@ function onSetSortBy() {
     renderBookshop();
 }
 
-function onClearFilterSearchbox() {
-    const elSearchBox = document.querySelector('.filter-by .title');
-    const elMinRating = document.querySelector('.filter-by .rating');
+function renderCurrentPage() {
+    const elCurrPage = document.querySelector('.pages .current');
     
-    gQueryParams.filterBy = {title: '', minRating: 1};
-    elSearchBox.value = '';
-    elMinRating.value = '1';
-    setQueryParams();
+    elCurrPage.innerText = `${gQueryParams.page.idx}`;
+}
+
+function onPageChange(next) {
+    const currPage = gQueryParams.page.idx;
+    
+    if (!next && currPage === 0) return
+    
+    const lastPageIdx = getLastPageIdx(gQueryParams);
+    if (currPage === lastPageIdx) {
+        gQueryParams.page.idx = 0
+    } else {
+        gQueryParams.page.idx = (next) 
+            ? currPage + 1
+            : currPage - 1;
+    }
     renderBookshop();
 
 }

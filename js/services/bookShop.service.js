@@ -9,10 +9,16 @@ function getBookById(bookId) {
     return gBooks.find( book => book.id === bookId);
 }
 
-function getBooks(params) {
-    let books = _filter(params.filterBy);
-    books = _sort(books, params.sortBy);
+function getBooks(options) {
+    const page = options.page;
+    let books = _filter(options.filterBy);
+    
+    books = _sort(books, options.sortBy);
 
+    const startIdx = page.idx * page.size;
+    const endIdx = startIdx + page.size;
+
+    books = books.slice(startIdx, endIdx);
     return books;
 }
 
@@ -41,6 +47,10 @@ function _sort(books, sortBy) {
         books.sort((book1, book2) => (book1.rating - book2.rating) * direction);
     }
     return books;
+}
+
+function getLastPageIdx(options) {
+    return Math.ceil(_filter(options.filterBy).length / options.page.size) - 1;
 }
 
 function updatePrice(bookId, price, rating) {

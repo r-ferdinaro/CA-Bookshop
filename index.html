@@ -49,6 +49,11 @@
             </tbody>
         </table>
         <button class="create" onclick="odAddBook()">Add new book</button>
+        <section class="pages">
+            <button data-direction="prev" onclick="onPageChange(false)">◀</button>
+            <button class="current"></button>
+            <button data-direction="next" onclick="onPageChange(true)">▶</button>
+        </section>
     </main>
     <footer>
         <span>Copyright ©</span>
