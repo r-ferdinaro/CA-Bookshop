@@ -3,7 +3,7 @@
 const gQueryParams = {
     filterBy: {title: '', minRating: 1},
     sortBy: {sort: 'title', direction: 1},
-    page: {idx: 0, size: 6}
+    page: {idx: 0, size: 5}
 }
 
 function onInit() {
@@ -20,11 +20,19 @@ function renderBookshop() {
         const message = (books.length > 0)
             ? 'No matching books were found...'
             : 'There are no books in the library';
-        strHtml = [`<tr><td colspan="100"><div class="empty">${message}</div></td></tr>`];
+        strHtml = [`<tr>
+                <td colspan="100">
+                <div class="empty">${message}</div>
+                </td></tr>`];
     } else {
         strHtml = books.map(book => `
             <tr>
-                <td>${book.title}</td>
+                <td>
+                    <img
+                    src="book-covers/${book.imgUrl}"
+                    alt="${book.title}"
+                    onerror="this.src='book-covers/sample.jpg';">
+                </td>
                 <td>${book.title}</td>
                 <td>${visualRating(book.rating)}</td>
                 <td>${book.price}</td>
@@ -33,6 +41,15 @@ function renderBookshop() {
                     <button class="action-btn update" onclick="onUpdateBook('${book.id}')">Update</button>
                     <button class="action-btn delete" onclick="onRemoveBook('${book.id}')">Delete</button>
                 </td>
+            </tr>
+        `);
+    }
+
+    const missing = gQueryParams.page.size - books.length;
+    for (let i = 0; i < missing; i++) {
+        strHtml.push(`
+            <tr class="empty-row">
+                <td>&nbsp;</td><td></td><td></td><td></td><td></td>
             </tr>
         `);
     }

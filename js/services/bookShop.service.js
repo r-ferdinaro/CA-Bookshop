@@ -89,7 +89,7 @@ function _createBook(title, price, rating) {
         id: generateId(),
         title,
         price,
-        imgUrl: `${title}.jpg`,
+        imgUrl: `${title.toLowerCase().replaceAll(' ', '_')}.jpg`,
         rating: +rating || getRandomInt(1, 6)
     };
 }
@@ -108,8 +108,8 @@ function _loadBooks() {
 
 function _createDummyBooks() {
     return [
-            _createBook('The adventures of Lori Ipsi', 120, 5),
+            _createBook('The Adventure home', 120, 5),
             _createBook('World Atlas', 300, 3),
-            _createBook('Zobra the greek', 87, 4),
+            _createBook('zorba the greek', 87, 4),
         ];
 }
