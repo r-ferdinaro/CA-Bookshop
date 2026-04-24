@@ -3,7 +3,7 @@
 const gQueryParams = {
     filterBy: {title: '', minRating: 1},
     sortBy: {sort: 'title', direction: 1},
-    page: {idx: 0, size: 3}
+    page: {idx: 0, size: 6}
 }
 
 function onInit() {
@@ -25,12 +25,13 @@ function renderBookshop() {
         strHtml = books.map(book => `
             <tr>
                 <td>${book.title}</td>
+                <td>${book.title}</td>
                 <td>${visualRating(book.rating)}</td>
                 <td>${book.price}</td>
                 <td>
-                    <button class="read" onclick="onGetBookDetails('${book.id}')">Read</button>
-                    <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
-                    <button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
+                    <button class="action-btn read" onclick="onGetBookDetails('${book.id}')">Read</button>
+                    <button class="action-btn update" onclick="onUpdateBook('${book.id}')">Update</button>
+                    <button class="action-btn delete" onclick="onRemoveBook('${book.id}')">Delete</button>
                 </td>
             </tr>
         `);
@@ -66,6 +67,7 @@ function onUpdateBook(bookId) {
                         <span>rating:</span>
                         ${ratingHTML}
                         <button class="update" type="submit">Confirm</button>
+                        <button class="close" onclick="closeDialog()">Close</button>
                     </div>
                 </form>
                 `;
@@ -169,7 +171,7 @@ function closeDialog() {
 }
 
 function onSetFilterBy() {
-    const elTitleFilter = document.querySelector('.filter-by .title');
+    const elTitleFilter = document.querySelector('.filter-by .search-title');
     const elMinRating = document.querySelector('.filter-by .rating');
 
     gQueryParams.filterBy = {
@@ -181,7 +183,7 @@ function onSetFilterBy() {
 }
 
 function onClearFilterSearchbox() {
-    const elSearchBox = document.querySelector('.filter-by .title');
+    const elSearchBox = document.querySelector('.filter-by .search-title');
     const elMinRating = document.querySelector('.filter-by .rating');
     
     gQueryParams.filterBy = {title: '', minRating: 1};
@@ -205,7 +207,7 @@ function onSetSortBy() {
 }
 
 function renderCurrentPage() {
-    const elCurrPage = document.querySelector('.pages .current');
+    const elCurrPage = document.querySelector('.pagination .current');
     
     elCurrPage.innerText = `${gQueryParams.page.idx}`;
 }
@@ -276,9 +278,9 @@ function readQueryParams() {
 }
 
 function renderQueryParams() {
-    const elFilterContainer = document.querySelector('.search-container');
+    const elFilterContainer = document.querySelector('.content-header');
 
-    elFilterContainer.querySelector('.title').value = gQueryParams.filterBy.title;
+    elFilterContainer.querySelector('.search-title').value = gQueryParams.filterBy.title;
     elFilterContainer.querySelector('.rating').value = gQueryParams.filterBy.rating || '1';
     elFilterContainer.querySelector('.sort').value = gQueryParams.sortBy.sort;
     elFilterContainer.querySelector('.desc').checked = (Number(gQueryParams.sortBy.direction) === 1) ? false : true;

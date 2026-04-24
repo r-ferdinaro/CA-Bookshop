@@ -7,64 +7,83 @@
     <title>Book Shop</title>
 </head>
 <body onload="onInit()">
-    <main>
-        <section class="search-container">
+    <aside class="sidebar">
+        <div class="logo">📖 Bookshop</div>
+        <nav>
+            <ul>
+                <li class="active">Library</li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-create" onclick="odAddBook()">+ Add new book</button>
+        </div>
+    </aside>
+    
+    <main class="main-content">
+        <section class="content-header">
+            <h1>Bookshop</h1>
 			<fieldset>
                 <legend>Filter & Sorting</legend>
                 <div class="filter-by">
-                    <span>Title:</span>
-                    <input class="title" name="bookSearch" placeholder="Book's title" oninput="onSetFilterBy(event)">
-                    <span>Rating:</span>
+                    <input class="search-title" name="bookSearch" placeholder="Search by title" oninput="onSetFilterBy(event)">
                     <select class="rating" name="ratingFilter" onchange="onSetFilterBy(event)">
-                        <option value="1">★☆☆☆☆</option>
-                        <option value="2">★★☆☆☆</option>
-                        <option value="3">★★★☆☆</option>
-                        <option value="4">★★★★☆</option>
-                        <option value="5">★★★★★</option>
+                        <option value="1">Min: ★☆☆☆☆</option>
+                        <option value="2">Min: ★★☆☆☆</option>
+                        <option value="3">Min: ★★★☆☆</option>
+                        <option value="4">Min: ★★★★☆</option>
+                        <option value="5">Min: ★★★★★</option>
                     </select>
                     <button onclick="onClearFilterSearchbox()">clear</button>
                 </div>
                 <div class="sort-by">
-                    <span>Sort By:</span>
                     <select class="sort" name="ratingSort" onchange="onSetSortBy(event)">
-                        <option value="title">Title</option>
-                        <option value="price">Price</option>
-                        <option value="rating">Rating</option>
+                        <option value="title">Sort: Title</option>
+                        <option value="price">Sort: Price</option>
+                        <option value="rating">Sort: Rating</option>
                     </select>
                     <span>Descending:</span>
-                    <input class="desc" type="checkbox" name="descending" onchange="onSetSortBy(event)">
+                    <label class="toggle-switch">
+                        <input class="desc" type="checkbox" name="descending" onchange="onSetSortBy(event)">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </fieldset> 
 		</section>
-        <table>
-            <thead>
-                <tr>
-                    <th class="title">Title</th>
-                    <th class="rating">Rating</th>
-                    <th class="price">Price</th>
-                    <th class="actions">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="books-container">
-            </tbody>
-        </table>
-        <button class="create" onclick="odAddBook()">Add new book</button>
-        <section class="pages">
-            <button data-direction="prev" onclick="onPageChange(false)">◀</button>
-            <button class="current"></button>
-            <button data-direction="next" onclick="onPageChange(true)">▶</button>
-        </section>
-    </main>
-    <footer>
-        <span>Copyright ©</span>
-        <div class="stats-container">
-            <span>Expensive: <span class="expensive"></span> |</span>
-            <span>Average: <span class="average"></span> |</span>
-            <span>Cheap: <span class="cheap"></span></span>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="cover">Cover</th>
+                        <th class="title">Title</th>
+                        <th class="rating">Rating</th>
+                        <th class="price">Price</th>
+                        <th class="actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="books-container"></tbody>
+            </table>
         </div>
-    </footer>
+        
+        <section class="pagination">
+            <div class="page-info">Showing page <span class="current"></span></div>
+            <div class="page-controls">
+                <button onclick="onPageChange(false)">←</button>
+                <button onclick="onPageChange(true)">→</button>
+            </div>
+        </section>
+        
+        <footer>
+            <span>Copyright © bookshop</span>
+            <div class="stats-container">
+                <span>Expensive: <span class="expensive"></span> |</span>
+                <span>Average: <span class="average"></span> |</span>
+                <span>Cheap: <span class="cheap"></span></span>
+            </div>
+        </footer>
+    </main>
     
     <div class="banner"></div>
+    
     <dialog method="dialog" class="book-details"></dialog>
 
     <script src="js/services/utils.js"></script>
