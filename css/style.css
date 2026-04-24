@@ -282,10 +282,14 @@ tbody > :nth-child(even) {
     background-color: var(--even-row);
 }
 
-td img {
-    width: 30px;
+img {
+    width: 15em;
     aspect-ratio: 9 / 16;
     object-fit: cover;
+}
+
+td img {
+    width: 30px;
 }
 
 .cover {
@@ -404,8 +408,9 @@ button:hover {
     line-height: 1.5;
 }
 
-.book-name,
-.book-price {
+.book-title,
+.book-price,
+.book-rating {
     font-weight: bolder;
 }
 
@@ -467,4 +472,17 @@ footer {
 
 .banner > span {
     font-weight: bold;
+}
+
+.preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+}
+
+.book-info {
+    align-self: flex-start;
+    line-height: 1.5;
 }

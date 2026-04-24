@@ -63,8 +63,15 @@ function onGetBookDetails(bookId) {
     const book = getBookById(bookId);
     
     const dialogContent = `
-        <pre>${JSON.stringify(book, null, 4)}</pre>
-        <button class="close" onclick="closeDialog()">Close</button>
+        <div class="preview">
+            <img src="book-covers/${book.imgUrl}" alt=${book.title}"" onerror="this.src='book-covers/sample.jpg';">
+            <div class="book-info">
+                <div><span class="book-title">Title:</span> ${book.title}</div>
+                <div><span class="book-price">Price:</span> ${book.price}</div>
+                <div><span class="book-rating">Rating:</span> ${visualRating(book.rating)}</div>
+            </div>
+            <button class="close" onclick="closeDialog()">Close</button>
+        </div>
         `;
     renderDialog(dialogContent);
 }
@@ -76,7 +83,7 @@ function onUpdateBook(bookId) {
     const dialogContent = `
                 <form onsubmit="onConfirmUpdatePrice(event, '${bookId}')">
                     <div>
-                        <div>Please specify a new price value for book <span class="book-name">${book.title}</span></div>
+                        <div>Please specify a new price value for book <span class="book-title">${book.title}</span></div>
                     </div>
                     <div class="set-book-details">
                         <span>Price:</span>
