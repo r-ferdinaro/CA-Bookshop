@@ -110,6 +110,6 @@ function _createDummyBooks() {
     return [
             _createBook('The Adventure home', 120, 5),
             _createBook('World Atlas', 300, 3),
-            _createBook('zorba the greek', 87, 4),
+            _createBook('Zorba the greek', 87, 4),
         ];
 }
