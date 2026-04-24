@@ -19,59 +19,61 @@
         </div>
     </aside>
     
-    <main class="main-content">
-        <section class="content-header">
-            <h1>Bookshop</h1>
-			<fieldset>
-                <legend>Filter & Sorting</legend>
-                <div class="filter-by">
-                    <input class="search-title" name="bookSearch" placeholder="Search by title" oninput="onSetFilterBy(event)">
-                    <select class="rating" name="ratingFilter" onchange="onSetFilterBy(event)">
-                        <option value="1">Min: ★☆☆☆☆</option>
-                        <option value="2">Min: ★★☆☆☆</option>
-                        <option value="3">Min: ★★★☆☆</option>
-                        <option value="4">Min: ★★★★☆</option>
-                        <option value="5">Min: ★★★★★</option>
-                    </select>
-                    <button onclick="onClearFilterSearchbox()">clear</button>
-                </div>
-                <div class="sort-by">
-                    <select class="sort" name="ratingSort" onchange="onSetSortBy(event)">
-                        <option value="title">Sort: Title</option>
-                        <option value="price">Sort: Price</option>
-                        <option value="rating">Sort: Rating</option>
-                    </select>
-                    <span>Descending:</span>
-                    <label class="toggle-switch">
-                        <input class="desc" type="checkbox" name="descending" onchange="onSetSortBy(event)">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </fieldset> 
-		</section>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="cover">Cover</th>
-                        <th class="title">Title</th>
-                        <th class="rating">Rating</th>
-                        <th class="price">Price</th>
-                        <th class="actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="books-container"></tbody>
-            </table>
-        </div>
-        
-        <section class="pagination">
-            <div class="page-info">Showing page <span class="current"></span></div>
-            <div class="page-controls">
-                <button onclick="onPageChange(false)">←</button>
-                <button onclick="onPageChange(true)">→</button>
+    <div class="main-wrapper">
+        <main class="main-content">
+            <section class="content-header">
+                <h1>Bookshop</h1>
+	    		<fieldset>
+                    <legend>Filter & Sorting</legend>
+                    <div class="filter-by">
+                        <input class="search-title" name="bookSearch" placeholder="Search by title" oninput="onSetFilterBy(event)">
+                        <select class="rating" name="ratingFilter" onchange="onSetFilterBy(event)">
+                            <option value="1">Min: ★☆☆☆☆</option>
+                            <option value="2">Min: ★★☆☆☆</option>
+                            <option value="3">Min: ★★★☆☆</option>
+                            <option value="4">Min: ★★★★☆</option>
+                            <option value="5">Min: ★★★★★</option>
+                        </select>
+                        <button onclick="onClearFilterSearchbox()">clear</button>
+                    </div>
+                    <div class="sort-by">
+                        <select class="sort" name="ratingSort" onchange="onSetSortBy(event)">
+                            <option value="title">Sort: Title</option>
+                            <option value="price">Sort: Price</option>
+                            <option value="rating">Sort: Rating</option>
+                        </select>
+                        <span>Descending:</span>
+                        <label class="toggle-switch">
+                            <input class="desc" type="checkbox" name="descending" onchange="onSetSortBy(event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </fieldset> 
+	    	</section>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="cover">Cover</th>
+                            <th class="title">Title</th>
+                            <th class="rating">Rating</th>
+                            <th class="price">Price</th>
+                            <th class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="books-container"></tbody>
+                </table>
             </div>
-        </section>
-        
+
+            <section class="pagination">
+                <div class="page-info">Showing page <span class="current"></span></div>
+                <div class="page-controls">
+                    <button onclick="onPageChange(false)">←</button>
+                    <button onclick="onPageChange(true)">→</button>
+                </div>
+            </section>
+
+        </main>
         <footer>
             <span>Copyright © bookshop</span>
             <div class="stats-container">
@@ -80,7 +82,7 @@
                 <span>Cheap: <span class="cheap"></span></span>
             </div>
         </footer>
-    </main>
+    </div>
     
     <div class="banner"></div>
     

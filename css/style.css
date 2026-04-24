@@ -88,24 +88,31 @@
     }
 
     /* Main Content */
+.main-wrapper {
+    flex: 8;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 900px;
+}
+    
     .main-content {
-        flex: 8;
+        flex: 1;
 
         display: flex;
         flex-direction: column;
-        /* justify-content: space-between; */
         gap: 1.2em;
 
         height: 100%;
-        min-width: 900px;
 
-        padding: 2em 2em 0 2em;
+        padding: 0 1.5em;
         overflow-y: auto;
     }
 
     .content-header {
         align-self: flex-start;
         width: 100%;
+        margin: 1em;
     }
 
     fieldset {
@@ -309,7 +316,7 @@
 
     /* Pagination */
     .pagination {
-        margin-top: 1.2em;
+        margin: 1.2em 0;
 
         display: flex;
         justify-content: space-between;
