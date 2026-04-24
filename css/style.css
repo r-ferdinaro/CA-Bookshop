@@ -285,7 +285,7 @@ tbody > :nth-child(even) {
 img {
     width: 15em;
     aspect-ratio: 9 / 16;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 td img {
