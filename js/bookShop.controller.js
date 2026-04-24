@@ -261,13 +261,13 @@ function renderStats() {
 
 function notifyUser(operation, id) {
     const elBanner = document.querySelector('.banner');
-    const book = getBookById(id);
+    const bookTitle = getBookById(id).title;
     let strHtml;
 
     switch (operation) {
-        case 'add': strHtml = `Book <span>${book.title}</span> has been created with a price of <span>${book.price}</span>`; break;
-        case 'update': strHtml = `The price of book <span>${book.title}</span> has been changed to <span>${book.price}</span>`; break;
-        case 'delete': strHtml = `Book <span>${book.title}</span> has been removed`; break;
+        case 'add': strHtml = `Book <span>${bookTitle}</span> has been created`; break;
+        case 'update': strHtml = `The price of book <span>${bookTitle}</span> has been updated successfully`; break;
+        case 'delete': strHtml = `Book <span>${bookTitle}</span> has been removed`; break;
     }
 
     elBanner.innerHTML = strHtml;
@@ -298,7 +298,7 @@ function renderQueryParams() {
     const elFilterContainer = document.querySelector('.content-header');
 
     elFilterContainer.querySelector('.search-title').value = gQueryParams.filterBy.title;
-    elFilterContainer.querySelector('.rating').value = gQueryParams.filterBy.rating || '1';
+    elFilterContainer.querySelector('.rating').value = gQueryParams.filterBy.minRating || '1';
     elFilterContainer.querySelector('.sort').value = gQueryParams.sortBy.sort;
     elFilterContainer.querySelector('.desc').checked = (Number(gQueryParams.sortBy.direction) === 1) ? false : true;
 }
