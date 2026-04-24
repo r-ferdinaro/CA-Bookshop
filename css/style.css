@@ -140,6 +140,12 @@ fieldset {
     border-radius: 1em;
 }
 
+legend {
+    margin-bottom: 0.5em;
+
+    font-weight: bold;
+}
+
 .filter-by,
 .sort-by {
     display: flex;
