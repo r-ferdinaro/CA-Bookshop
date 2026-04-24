@@ -226,7 +226,7 @@ function onSetSortBy() {
 function renderCurrentPage() {
     const elCurrPage = document.querySelector('.pagination .current');
     
-    elCurrPage.innerText = `${gQueryParams.page.idx}`;
+    elCurrPage.innerText = `${gQueryParams.page.idx + 1}`;
 }
 
 function onPageChange(next) {
